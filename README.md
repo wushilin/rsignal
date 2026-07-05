@@ -2,6 +2,24 @@
 
 A **one-shot, multi-signaler / multi-waiter, fail-safe broadcast event** for Rust.
 
+## Why
+
+`rsignal` exists to provide a **performant, reliable, and easy-to-use signal
+service for multi-thread (and multi-task) coordination**.
+
+The usual Rust one-shot primitives are **SPSC** — single producer, single
+consumer: one `oneshot::Sender`, one `Receiver`, and cloning either side is not
+part of the model. Real coordination problems are often wider than that: *any*
+of several workers may be the one to report "ready" / "shutdown" / "found it",
+and *many* threads or tasks need to hear about it at once.
+
+`rsignal` is **MPMC by design**: any number of signalers, any number of
+waiters, all sharing one event. The first signal wins and releases everyone —
+with clear, mpsc-style errors on every edge (all signalers gone, all waiters
+gone) so nothing ever blocks forever or fires into the void. Signaling is
+wait-free, waiting has a lock-free fast path, and the whole crate is
+dependency-free `std` with no `unsafe`.
+
 One shared event, any number of senders and receivers. The first signal wins and
 releases *every* waiter; late waiters observe the fired state immediately; and the
 event is fail-safe on both sides — if all senders vanish, waiters are told; if all
