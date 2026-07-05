@@ -29,5 +29,5 @@ Initial release.
 - Live-handle snapshots: `signaler_count()` / `waiter_count()`.
 - Zero dependencies, `#![forbid(unsafe_code)]`.
 
-[Unreleased]: https://github.com/wushilin/rsignal/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/wushilin/rsignal/releases/tag/v0.1.0
+[Unreleased]: https://github.com/wushilin/rsignals/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/wushilin/rsignals/releases/tag/v0.1.0
